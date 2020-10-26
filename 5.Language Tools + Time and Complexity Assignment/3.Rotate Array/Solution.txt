@@ -1,0 +1,22 @@
+// arr - input array
+// size - size of array
+// d - array to be rotated by d elements
+#include<vector>
+#include<bits/stdc++.h>
+void Rotate(int arr[], int d, int n) {
+    /* Don't write main().
+     * Don't read input, it is passed as function argument.
+     * No need to print or return the output.
+     * Taking input and printing the output is handled automatically.
+     */
+    if(d>n)
+        d=d%n;
+    int temp[d];
+    for(int i=0;i<d;i++)
+        temp[i]=arr[i];
+    for(int i=0;i<n;i++)
+        arr[i]=arr[i+d];
+    for(int i=0;i<d;i++)
+        arr[i+n-d]=temp[i];
+    
+}	

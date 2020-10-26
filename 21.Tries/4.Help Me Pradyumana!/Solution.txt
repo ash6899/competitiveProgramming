@@ -1,0 +1,124 @@
+#include <bits/stdc++.h>
+#define ll long long int
+#define N 100000
+#define M 1000000007
+#define f(i,a,b) for(ll i=(ll)a;i<=(ll)b;i++)
+#define rf(i,a,b) for(ll i=(ll)a;i>=(ll)b;i--)
+#define po pop_back
+#define pb push_back
+#define lb lower_bound
+#define ub upper_bound
+#define ibs ios_base::sync_with_stdio(false)
+#define cti cin.tie(0)
+#define cot cout.tie(0)
+using namespace std;
+
+struct trieNode
+{
+struct trieNode *children[26];
+bool isEndofWord; // stores end of word for a string
+};
+struct trieNode* getNode(void)
+{
+struct trieNode *node = new trieNode();
+node->isEndofWord=false;
+f(i,0,25)
+{
+node->children[i]= NULL;
+}
+return node;
+};
+void insert(struct trieNode *root,string key)
+{
+struct trieNode *temp=root;
+f(i,0,key.length()-1)
+{
+ll index=key[i]-'a';
+if(temp->children[index]==NULL)
+{
+temp->children[index]=getNode();
+}
+temp=temp->children[index];
+}
+temp->isEndofWord=true;
+}
+struct trieNode *search(struct trieNode *root,string key)
+{
+struct trieNode *temp=root;
+
+f(i,0,key.length()-1)
+{
+ll index=key[i]-'a';
+if(!temp->children[index])
+{
+return NULL;
+}
+temp=temp->children[index];
+}
+return temp;
+}
+vector <char> res;
+set <string > ans;
+void dfs(struct trieNode *temp)
+{
+if(temp->isEndofWord)
+{
+string s="";
+f(i,0,res.size()-1)
+s+=res[i];
+ans.insert(s);
+}
+f(i,0,25)
+{
+if(temp->children[i]!=NULL)
+{
+//cout << (char)(i+97) << endl;
+res.pb((char)(i+97));
+dfs(temp->children[i]);
+}
+}
+res.po();
+}
+int main()
+{
+//freopen("input.txt","r",stdin);
+ibs;cti;
+ll n;
+cin >> n ;
+struct trieNode* root= getNode();
+f(i,1,n)
+{
+string s;
+cin >> s;
+f(i,0,s.length()-1)
+{
+if(s[i]>='A'&&s[i]<='Z')
+s[i]=(char)((int)s[i]+32);
+}
+insert(root,s);
+}
+ll q;
+cin >> q;
+struct trieNode *temp=NULL;
+f(i,1,q)
+{
+string j;
+cin >> j;
+temp=search(root,j);
+if(temp==NULL)
+{
+cout << "No suggestions" << endl;
+insert(root,j);
+}
+else
+{
+f(i,0,j.length()-1)
+res.pb(j[i]);
+dfs(temp);
+res.clear();
+for(auto it=ans.begin();it!=ans.end();it++)
+cout << *it << endl;
+ans.clear();
+}
+}
+}

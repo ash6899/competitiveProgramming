@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+
+	// Write your code here
+    int n;
+    cin>>n;
+    int arr[n],dep[n];
+    for(int i=0;i<n;i++)
+        cin>>arr[i];
+    for(int i=0;i<n;i++)
+        cin>>dep[i];
+    sort(arr,arr+n);
+    sort(dep,dep+n);
+    int chairs=1,ans=1,i=1,j=0;
+    while(i<n && j<n)
+    {
+        if(arr[i]<=dep[j])
+        {
+            chairs++;
+            i++;
+            if(chairs>ans)
+                ans=chairs;
+        }
+        else
+        {
+            chairs--;
+            j++;
+        }
+    }
+    cout<<ans<<endl;
+}

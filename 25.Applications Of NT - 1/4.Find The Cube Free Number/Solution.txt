@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n=1000000;
+int isCubeFree[1000001];
+void prefunction(){
+    for(int i=0;i<=n;i++){
+        isCubeFree[i] = 0;
+    }
+    for(int i=2;i*i*i<=n;i++){
+        //if(isPrime[i]==true){
+            for(int j=i*i*i;j<=n;j+=i*i*i){
+                isCubeFree[j] = -1;
+            }
+        
+    }
+    int ans =1;
+    for(int i=1;i<=n;i++){
+        if(isCubeFree[i]!=-1)
+        {
+            isCubeFree[i]=ans;
+            ans++;
+        }
+    }
+}
+int main(){
+    prefunction();
+    int t;
+    cin>>t;
+    
+    for(int test = 1;test <= t;test++){
+        int a;
+        cin>>a;
+        if(isCubeFree[a]!=-1)
+        cout<<"Case "<<test<<": "<<isCubeFree[a]<<endl;
+        else
+        {
+            cout<<"Case "<<test<<": "<<"Not Cube Free"<<endl;
+        }
+        
+    }
+}

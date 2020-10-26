@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+#define MOD 1000000007
+ll dp[100][100][100];
+
+int memsolver(string a,string b,string c){
+	ll x = a.size();
+	ll y = b.size();
+	ll z = c.size();
+
+	ll ans = 0;
+	
+	if (z == 0)
+	{
+	 	return 1;
+	}
+
+	if (x<=0 && y<=0)
+	{
+		return 0;
+	}
+
+	if (dp[x][y][z]!=-1)
+	{
+		return dp[x][y][z];
+	}
+
+	for (ll i = 0; i < a.size(); ++i)
+	{
+		if (a[i]==c[0])
+		{
+			ans+=memsolver(a.substr(i+1), b, c.substr(1));
+		}
+	}
+
+	
+
+	for (ll i = 0; i < b.size(); ++i)
+	{
+		if (b[i] == c[0])
+		{
+			ans+=memsolver(a, b.substr(i+1), c.substr(1));
+		}
+	}
+
+	dp[x][y][z] = ans%MOD;
+	return ans%MOD;
+}
+
+int solve(string a,string b,string c)
+{
+	memset(dp, -1, sizeof(dp));
+	return memsolver(a, b, c);	
+}

@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+
+	int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++)
+        cin>>a[i];
+    sort(a, a+n, greater<int>());
+    for (int i = 0; i < n-2; ++i)
+	{
+		int s1, s2, s3;
+
+		s1 = a[i];
+		s2 = a[i+1];
+		s3 = a[i+2];
+
+		if (s2+s3>s1 && s1+s2>s3 && s3+s1>s2)
+		{
+			cout << s3<<" "<<s2<<" "<<s1 << '\n';
+			return 0;;
+		}
+	}
+
+	cout << -1 << '\n';
+    return 0;
+}

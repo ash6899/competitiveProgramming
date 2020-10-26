@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+#define MOD 100001
+using namespace std;
+
+int numofAP(int *arr, int N){
+    /*
+    Return all possible AP subsequences formed from the given integer array. You do not need to take input or print anything.
+    Just return the ans.
+    */
+    int mina=INT_MAX,maxa=INT_MIN;
+    
+    for(int i=0;i<N;i++){
+        mina=min(mina,arr[i]);
+        maxa=max(maxa,arr[i]);
+    }
+    
+    //Iterate through all common difference
+    int count=N+1;
+    int dp[N]={0};
+    int sum[MOD]={0};
+    for(int d=mina-maxa;d<=maxa-mina;d++){
+        
+        memset(sum,0,MOD);
+        
+        sum[arr[0]]=1;
+        for(int i=1;i<N;i++){
+            dp[i]=1;
+            
+            if(arr[i]-d>=1 && arr[i]-d<=100000)
+                dp[i]=(dp[i]+sum[arr[i]-d])%MOD;
+            
+            count=(count+dp[i]-1)%MOD;
+            
+            sum[arr[i]]=(sum[arr[i]]+dp[i])%MOD;
+        }
+    }
+    return count;
+    
+    
+}

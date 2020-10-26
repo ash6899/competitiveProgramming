@@ -1,0 +1,50 @@
+#include <string>
+using namespace std;
+
+string getstring(int x)
+{
+    if(x==2)
+    return "abc";
+    if(x==3)
+    return "def";
+    if(x==4)
+    return "ghi";
+    if(x==5)
+    return "jkl";
+    if(x==6)
+    return "mno";
+    if(x==7)
+    return "pqrs";
+    if(x==8)
+    return "tuv";
+    if(x==9)
+    return "wxyz";
+    return "";
+}
+int keypad(int num, string output[]){
+    if(num==0)
+    {   output[0]="";
+        return 1;
+    }
+    int last = num%10;
+    int smallnumber = num/10;
+    int smalloutput = keypad(smallnumber,output);
+    string option = getstring(last);
+    for(int i=0;i<option.length()-1;i++)
+    {
+        for(int j=0;j<smalloutput;j++)
+        {
+            output[j+(i+1)*smalloutput]=output[j];
+        }
+    }
+    int k=0;
+    for(int i=0;i<option.length();i++)
+    {
+        for(int j=0;j<smalloutput;j++)
+        {
+            output[k] = output[k]+option[i];
+            k++;
+        }
+    }
+    return smalloutput*option.length();
+}

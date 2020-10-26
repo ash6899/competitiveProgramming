@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+int countPalindromes(string s) 
+{
+	int count  = 0;
+    unordered_map<string, int> m; 
+    for (int i = 0; i < s.length(); i++) { 
+  
+        // check for odd length palindromes 
+        for (int j = 0; j <= i; j++) { 
+  
+            if (!s[i + j]) 
+                break; 
+  
+            if (s[i - j] == s[i + j]) { 
+  
+                // check for palindromes of length 
+                // greater than 1 
+                if ((i + j + 1) - (i - j) > 1){ 
+                    m[s.substr(i - j,  
+                        (i + j + 1) - (i - j))]++; 
+                    count++;
+                }
+  
+            } else
+                break; 
+        } 
+  
+        // check for even length palindromes 
+        for (int j = 0; j <= i; j++) { 
+            if (!s[i + j + 1]) 
+                break; 
+            if (s[i - j] == s[i + j + 1]) { 
+  
+                // check for palindromes of length  
+                // greater than 1 
+                if ((i + j + 2) - (i - j) > 1) 
+                    m[s.substr(i - j,  
+                         (i + j + 2) - (i - j))]++; 
+                count++;
+  
+            } else
+                break; 
+        } 
+    } 
+    return count; 
+}
+int countPalindromeSubstrings(char s[]) {
+	string str;
+	for (int i = 0; s[i]!='\0'; ++i)
+	{
+		str += s[i];
+	}
+
+	return countPalindromes(str)+str.size();
+	
+}

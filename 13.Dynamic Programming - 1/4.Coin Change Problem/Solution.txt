@@ -1,0 +1,26 @@
+int countWaysToMakeChange1(int d[], int numD, int n,int **output){
+    if(n==0)
+        return 1;
+    if(n<0)
+        return 0;
+    if(numD==0)
+        return 0;
+    if(output[n][numD]>-1)
+        return output[n][numD];
+    int first = countWaysToMakeChange1(d,numD,n-d[0],output);
+    int second = countWaysToMakeChange1(d+1,numD-1,n,output);
+    output[n][numD]=first+second;
+    return first+second;
+}
+int countWaysToMakeChange(int denominations[], int numDenominations, int value){
+    int **output=new int *[value+1];
+    for(int i=0;i<value+1;i++){
+        output[i]=new int[numDenominations+1];
+    }
+    for(int i=0;i<value+1;i++){
+        for(int j=0;j<numDenominations+1;j++){
+            output[i][j]=-1;
+        }
+    }
+    return countWaysToMakeChange1(denominations, numDenominations, value,output);
+}

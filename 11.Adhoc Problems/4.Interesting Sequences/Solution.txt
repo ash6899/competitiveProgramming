@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+
+    int n,k,l,mine=1001,maxe=0;
+    cin>>n>>k>>l;
+    int a[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>a[i];
+        if(a[i]>maxe)
+            maxe=a[i];
+        if(a[i]<mine)
+            mine=a[i];
+    }
+    long long min_cost = INT_MAX;
+    for(int i=mine;i<=maxe;i++)
+    {
+        long long inc = 0,dec = 0;
+        for(int j=0;j<n;j++)
+        {
+            if(a[j]<i)
+                inc+=(i-a[j]);
+            if(a[j]>i)
+                dec+=(a[j]-i);
+        }
+        if(dec<=inc)
+        {
+            long long cost = (dec*k)+((inc-dec)*l);
+            if(cost<min_cost)
+                min_cost=cost;
+        }
+    }
+    cout<<min_cost<<endl;
+	return 0;
+}

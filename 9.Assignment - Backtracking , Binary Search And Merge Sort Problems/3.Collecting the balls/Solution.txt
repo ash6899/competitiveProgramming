@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+bool check(ll k,ll n)
+{
+   ll sum =0,cur = n;
+    while(cur>0)
+    {
+        ll o = min(cur,k);
+        sum =sum +o;
+        cur-=o;
+        cur-=cur/10;
+    }
+    return sum*2>=n;
+}
+int main()
+{
+	ll n;
+    cin>>n;
+	ll ans = 0;
+    ll low = 1;
+    ll high = n;
+    ll mid = (low+high)/2;
+	while (low<=high)
+	{
+        mid = (low+high)/2;
+	   if(check(mid,n))
+       {
+           ans=mid;
+           high=mid-1;
+       }
+        else
+            low = mid+1;
+	}
+    cout<<ans<<endl;
+	return 0;
+}

@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+int findString(char S[], char T[]) {
+	int length = strlen(T);
+	int n = strlen(S);
+
+
+	vector<int> pitable(length, 0);
+	int i = 0;
+	int j = i+1;
+
+	while(j<length && i<length){
+		if (T[i]==T[j])
+		{
+			pitable[j] = i+1;
+			i++;
+			j++;
+		}else
+		{
+			if (i!=0)
+			{
+				i = pitable[i-1];
+
+			}
+			j++;
+		}
+	}
+
+	// for (int k = 0; k < length; ++k)
+	// {
+	// 	cout << pitable[k] << ' ';
+	// }
+	// cout <<  '\n';
+	// return 0;
+
+	int p = 0;
+	int q = 0;
+	while(q<length && p<n){
+		if (S[p] == T[q])
+		{
+			p++;
+			q++;
+		}else
+		{
+			//cout << "here" << '\n';
+			if (q==0)
+			{
+				p++;
+				continue;
+			}
+			q = pitable[q-1];
+		}
+	}
+
+	if (q==length)
+	{
+		return p-length;
+	}
+
+
+	return -1;
+
+}

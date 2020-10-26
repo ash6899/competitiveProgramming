@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define N 1000000007
+typedef long long int ll;
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int x;
+        cin>>x;
+        vector<int> v;
+        ll sol = 1;
+        bool isPrime[x+1];
+        for(int i=0;i<=x;i++){
+            isPrime[i] = true;
+        }
+        isPrime[0] = false;
+        isPrime[1] = false;
+        for(int i=2;i*i<=x;i++){
+            if(isPrime[i]==true){
+                for(int j=i*i;j<=x;j+=i){
+                    isPrime[j] = false;
+                }
+            }
+        }
+        for(int i=2;i<=x;i++){
+            if(isPrime[i]){
+                int temp = x;
+                int ans = 0;
+                while(temp>0){
+                    ans+=(temp/i);
+                    temp = temp/i;
+                }
+                if(ans!=0)
+                v.push_back(ans);
+                sol = (sol *(ans+1))%N;
+            }
+        }
+        cout<<sol<<endl;
+    }
+}

@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool comp2(pair<int,int> p1,pair<int,int> p2)
+{
+    if(p1.first<p2.first)
+        return true;
+    return false;
+}
+bool comp(pair<int,int> p1,pair<int,int> p2)
+{
+    if(p1.second<p2.second)
+        return true;
+    if(p1.second==p2.second)
+      return  comp2(p1,p2);
+    return false;
+}
+int main()
+{
+    int n;
+    cin>>n;
+    vector<pair<int,int> > v;
+    for(int i=0;i<n;i++)
+    {
+        int a,b;
+        cin>>a>>b;
+        v.push_back(make_pair(a,b));
+    }
+    sort(v.begin(),v.end(),comp);
+    int ans=0,last=0;
+    for(int i=1;i<n;i++)
+    {
+        if(v[i].first>=v[last].second)
+        {
+            ans++;
+            last=i;
+        }
+            
+    }
+    cout<<ans+1<<endl;
+    return 0;
+}

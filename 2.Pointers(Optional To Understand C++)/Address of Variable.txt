@@ -1,0 +1,22 @@
+1.Which of the following gives the memory address of integer variable a ?
+
+Options
+a).*a;
+b).a;
+c).&a; 
+d).address(a);
+
+
+correct = c
+
+2.Which of the following gives the memory address of variable 'b' pointed by pointer 'a' i.e.
+int b = 10;
+int *a = &b;
+
+Options
+a).a 
+b).*a
+c).&a
+d).address(a)
+
+Correct Answer=option a

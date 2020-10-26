@@ -1,0 +1,37 @@
+static int k=0;
+static int index=0;
+bool check(int p,int x)
+{
+    if(p==x)
+        return true;
+    else
+        return false;
+}
+int lastIndex(int input[], int size, int x) {
+  /* Don't write main().
+     Don't read input, it is passed as function argument.
+     Return output and don't print it.
+     Taking input and printing output is handled automatically.
+  */
+    if(size==1)
+    {
+        if(check(*input,x))
+            return k;
+        else if(index!=0)
+            return index;
+        else
+            return -1;
+    }
+    else
+    {
+        k++;
+        if(check(*input,x))
+        {
+            index=k-1;
+            lastIndex(input+1,size-1,x);
+        }
+        else
+            lastIndex(input+1,size-1,x);
+    }
+    
+}

@@ -1,0 +1,48 @@
+bool check(char Graph[][MAXN], int i, int j, int N, int M, string target, int k, int** visited) {
+    if(k >= target.size())
+        return true;
+    if(i<0 or j<0 or i>=N or j>=M or Graph[i][j] != target[k] or visited[i][j] == 1)
+        return false;
+    visited[i][j] = 1;
+    bool meth1 = check(Graph, i, j+1, N, M, target, k+1, visited);
+    bool meth2 = check(Graph, i, j-1, N, M, target, k+1, visited);
+    bool meth3 = check(Graph, i-1, j, N, M, target, k+1, visited);
+    bool meth4 = check(Graph, i+1, j, N, M, target, k+1, visited);
+    bool meth5 = check(Graph, i+1, j+1, N, M, target, k+1, visited);
+    bool meth6 = check(Graph, i+1, j-1, N, M, target, k+1, visited);
+    bool meth7 = check(Graph, i-1, j+1, N, M, target, k+1, visited);
+    bool meth8 = check(Graph, i-1, j-1, N, M, target, k+1, visited);
+    if(meth1 or meth2 or meth3 or meth4 or meth5 or meth6 or meth7 or meth8) {
+        return true;
+    }
+    return false;
+}
+
+void initVisited(int** visited, int N, int M) {
+    for(int i=0;i<N;i++) {
+        for(int j=0;j<M;j++)
+            visited[i][j] = 0;
+    }
+}
+
+int solve(char Graph[][MAXN],int N, int M)
+{
+	int** visited = new int*[N];
+    for(int i=0;i<N;i++) {
+        visited[i] = new int[M];
+        for(int j=0;j<M;j++) {
+            visited[i][j] = 0;
+        }
+    }
+    string target = "CODINGNINJA";
+    for(int i=0;i<N;i++) {
+        for(int j=0;j<M;j++) {
+            if(Graph[i][j] == 'C' and !visited[i][j]) {
+                initVisited(visited, N, M);
+                if(check(Graph, i, j, N, M, target, 0, visited))
+                    return true;
+            }
+        }
+    }
+    return false;
+}

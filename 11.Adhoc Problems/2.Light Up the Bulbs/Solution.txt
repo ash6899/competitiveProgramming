@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    long long n,x,y;
+    cin>>n>>x>>y;
+    string s;
+    cin>>s;
+    long long zero_groups=0;
+    if(s[0]=='0')
+        zero_groups+=1;
+    for(int i=1;i<n;i++)
+    {
+        if(s[i-1]=='1' && s[i]=='0')
+            zero_groups+=1;
+    }
+    if(zero_groups==0)
+        cout<<0<<endl;
+    else
+        cout<<((zero_groups-1)*min(x,y))+y<<endl;
+	return 0;
+}

@@ -1,0 +1,14 @@
+typedef unsigned long long int ulli;
+ulli balancedBTs(int h) {
+  /* Don't write main().
+     Don't read input, it is passed as function argument.
+     Return the output and don’t print it.
+  */
+    if(h==0 || h==1)
+        return 1;
+    ulli x = balancedBTs(h-1);
+    ulli y = balancedBTs(h-2);
+    x = x%1000000007;
+    y = y%1000000007;
+    return (((x*x)%1000000007)+((2*x*y)%1000000007))%1000000007;
+}
